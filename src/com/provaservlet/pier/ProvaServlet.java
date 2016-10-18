@@ -25,12 +25,13 @@ public class ProvaServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		String nome = request.getParameter("nome");
+		String password = request.getParameter("password");
 		
 		HttpSession session = request.getSession();
 		
 		PrintWriter writer = response.getWriter();
 		
-		if(nome != null && !nome.isEmpty()){
+		if(nome != null && !nome.isEmpty() && password!=null && !password.isEmpty()){
 			writer.println("Benvenuto " + nome +"!");
 		} else {
 			response.sendRedirect("login.html");
@@ -42,6 +43,7 @@ public class ProvaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 	}
 
