@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
+
 /**
  * Servlet implementation class ProvaServlet
  */
@@ -29,10 +31,13 @@ public class ProvaServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		
 		PrintWriter writer = response.getWriter();
 		
 		if(nome != null && !nome.isEmpty() && password!=null && !password.isEmpty()){
-			writer.println("Benvenuto " + nome +"!");
+			writer.println("Benvenuto " + nome +"!\n");
+			session.setAttribute("nomeAttuale", nome);
+			writer.println("Session: " + session.getAttribute("nomeAttuale"));
 		} else {
 			response.sendRedirect("login.html");
 		}
@@ -44,7 +49,18 @@ public class ProvaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String nome = request.getParameter("nome");
+		String password = request.getParameter("password");
 		
+		HttpSession session = request.getSession();
+		
+		PrintWriter writer = response.getWriter();
+		
+		if (nome != null && !nome.isEmpty() && password != null && !password.isEmpty()){
+			response.sendRedirect("index.html");
+		} else {
+			response.sendRedirect("login.html");
+		}
 	}
 
 }
